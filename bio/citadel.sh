@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 printf "%0.s-" {1..18}
 echo -e "\nstarting citadel tests"
 printf "%0.s-" {1..18}
