@@ -18,7 +18,7 @@ kitten @ launch --type=tab --cwd current --tab-title "Headless"
 kitty @ send-text --match-tab title:"Anchor|Headless" source install/setup.bash'\n'
 kitty @ send-text --match-tab title:"Anchor|Headless" colcon build --symlink-install'\n'
 
-kitty @ send-text --match-tab title:Anchor PORT_OVERRIDE=/tmp/ttyACM9 ros2 launch anchor_pkg rover.launch.py'\n'
+kitty @ send-text --match-tab title:Anchor ros2 launch anchor_pkg rover.launch.py connector:=serial serial_override:=/tmp/ttyACM9'\n'
 kitty @ send-text --match-tab title:Headless ros2 run headless_pkg headless_full'\n'
 
 read -r -d '' _ </dev/tty #keep script open
