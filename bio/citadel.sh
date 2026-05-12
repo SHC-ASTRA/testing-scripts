@@ -4,18 +4,12 @@ echo -e "\nstarting citadel tests"
 printf "%0.s-" {1..18}
 
 echo -e "\n\nclosing all distributors"
-ros2 topic pub /bio/citadel/control astra_msgs/msg/CitadelControl \
-  "{distributor_id: [false, false, false], move_scythe: 0.0, vibration_motor: false}" &
-PID=$!
-sleep 3
-kill $PID
+ros2 topic pub -1 /bio/citadel/control astra_msgs/msg/CitadelControl \
+  "{distributor_id: [false, false, false], move_scythe: 0.0, vibration_motor: false}"
 
 echo -e "\nopening all distributors"
-ros2 topic pub /bio/citadel/control astra_msgs/msg/CitadelControl \
-  "{distributor_id: [true, true, true], move_scythe: 0.0, vibration_motor: false}" &
-PID=$!
-sleep 3
-kill $PID
+ros2 topic pub -1 /bio/citadel/control astra_msgs/msg/CitadelControl \
+  "{distributor_id: [true, true, true], move_scythe: 0.0, vibration_motor: false}"
 
 # Test tubes
 for i in {0..2}; do
@@ -27,25 +21,16 @@ done
 
 # Scythe
 echo -e "\nmoving scythe up"
-ros2 topic pub /bio/citadel/control astra_msgs/msg/CitadelControl \
-  "{distributor_id: [false, false, false], move_scythe: 1.0, vibration_motor: false}" &
-PID=$!
-sleep 3
-kill $PID
+ros2 topic pub -t 3 /bio/citadel/control astra_msgs/msg/CitadelControl \
+  "{distributor_id: [false, false, false], move_scythe: 1.0, vibration_motor: false}"
 
 echo -e "\nmoving scythe down"
-ros2 topic pub /bio/citadel/control astra_msgs/msg/CitadelControl \
-  "{distributor_id: [false, false, false], move_scythe: -1.0, vibration_motor: false}" &
-PID=$!
-sleep 3
-kill $PID
+ros2 topic pub -t 3 /bio/citadel/control astra_msgs/msg/CitadelControl \
+  "{distributor_id: [false, false, false], move_scythe: -1.0, vibration_motor: false}"
 
 echo -e "\nstopping scythe"
-ros2 topic pub /bio/citadel/control astra_msgs/msg/CitadelControl \
-  "{distributor_id: [false, false, false], move_scythe: 0.0, vibration_motor: false}" &
-PID=$!
-sleep 1
-kill $PID
+ros2 topic pub -1 /bio/citadel/control astra_msgs/msg/CitadelControl \
+  "{distributor_id: [false, false, false], move_scythe: 0.0, vibration_motor: false}"
 
 # Vacuum action
 for i in {0..2}; do
